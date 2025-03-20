@@ -50,6 +50,7 @@ then
    VALIDATE $? "Adding expense user"
 else
    echo -e "expense user already exist... $Y SKIPPING $N"
+fi
 
 mkdir /app &>>$LOGS_FILE_NAME
 VALIDATE $? "Creating app directory"
