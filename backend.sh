@@ -52,7 +52,7 @@ else
    echo -e "expense user already exist... $Y SKIPPING $N"
 fi
 
-mkdir /app &>>$LOGS_FILE_NAME
+mkdir -p /app &>>$LOGS_FILE_NAME
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOGS_FILE_NAME
