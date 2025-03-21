@@ -32,32 +32,33 @@ CHECK_ROOT(){
     fi
 }
 
+mkdir -p $LOGS_FOLDER
 echo "Script started executed at: $TIMESTAMP" &>>$LOGS_FILE_NAME
 
 CHECK_ROOT
 
-dnf install nginx -y 
+dnf install nginx -y &>>$LOGS_FILE_NAME
 VALIDATE $? "Installing Nginx Server"
 
-systemctl enable nginx
+systemctl enable nginx &>>$LOGS_FILE_NAME
 VALIDATE $? "Enabling Nginx Serrver"
 
-systemctl start nginx
+systemctl start nginx &>>$LOGS_FILE_NAME
 VALIDATE $? "Starting Nginx server"
 
-rm -rf /usr/share/nginx/html/*
+rm -rf /usr/share/nginx/html/* &>>$LOGS_FILE_NAME
 VALIDATE $? "Removing existing version of code"
 
-curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOGS_FILE_NAME
 VALIDATE $? "Downloading latest code"
 
-cd /usr/share/nginx/html
+cd /usr/share/nginx/html &>>$LOGS_FILE_NAME
 VALIDATE $? "Moving to HTML directory"
 
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip &>>$LOGS_FILE_NAME
 VALIDATE $? "Unzipping the frontend code"
 
-systemctl restart nginx
+systemctl restart nginx &>>$LOGS_FILE_NAME
 VALIDATE $? "Restarting Nginx"
 
 
